@@ -5,35 +5,33 @@
 library(ggplot2)
 
 
-x = seq(-10, 10, 1)
+X = seq(-2, 2, .01)
 y = function(x, n){
-  2*x^n - x^(n-1) + 1
-}
-
-# Polynomial of degree 2
-p2 = y(x, 2)
-plot(p2, main='Polynomial of degree 2')
-
-# Polynoial of degree 3
-p3 = y(x, 3)
-plot(p3, main = 'Polynomial of degree 3')
-
-# Polynomial of Degree 4
-p4 = y(x, 4)
-plot(p4, main = 'Polynomial of degree 4')
-
-# Polynomial of degree 5
-p5 = y(x, 5)
-plot(p5, main = 'Polynomial of degree 5')
-
-
+  if (n >= 2)
+    return(2*(x^n) - x^(n-1) + 1)
+  
+  else if (n < 2)
+    return(2*x^n - x + 1)
+  }
 
 # Graph Multiple Lines Graphs
+df = data.frame(row.names = x)
+df$p1 = y(x, 1)
+df$p2 = y(x, 2)
+df$p3 = y(x, 3)
+df$p4 = y(x, 4)
+df$p5 = y(x, 5)
+
+p = ggplot() + geom_line(data = df, aes(x = X, y = df$p1, color = 'p1')) + 
+           geom_line(data = df, aes(x = X, y = df$p2, color = 'p2')) + 
+           geom_line(data = df, aes(x = X, y = df$p3, color = 'p3')) +
+           geom_line(data = df, aes(x = X, y = df$p4, color = 'p4')) +
+           geom_line(data = df, aes(x = X, y = df$p5, color = 'p5'))
+p
 
 
-
-
-
-
+x = seq(-2, 2, .01)
+y = x^4 - 3*(x^2) + x
+plot(y)
 
 
